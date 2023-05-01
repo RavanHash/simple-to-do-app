@@ -29,11 +29,17 @@ export default function App() {
     });
   }
 
+  function deleteTodo(id) {
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== id);
+    });
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit} className={"new-item-form"}>
         <div className="form-row">
-          <label htmlFor="item">New uwu Task</label>
+          <label htmlFor="item">New Task</label>
           <input
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}
@@ -42,8 +48,9 @@ export default function App() {
           <button className="btn">+</button>
         </div>
       </form>
-      <h1 className="header"> ToDo uwu List</h1>
+      <h1 className="header"> ToDo List</h1>
       <ul className="list">
+        {todos.length === 0 && "(:"}
         {todos.map((todo) => {
           return (
             <li key={todo.id}>
@@ -55,7 +62,12 @@ export default function App() {
                 />
                 {todo.title}
               </label>
-              <button className="btn btn-danger">Delete</button>
+              <button
+                onClick={() => deleteTodo(todo.id)}
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
             </li>
           );
         })}
